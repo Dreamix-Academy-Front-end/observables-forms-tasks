@@ -1,0 +1,46 @@
+<div class="p-6 bg-gray-100 min-h-screen flex flex-col items-center">
+    <h2 class="text-2xl font-bold mb-6 text-center text-blue-600">User and Post Details</h2>
+
+    <!-- User Collapse Section -->
+    <details
+        class="collapse collapse-plus bg-white shadow-lg rounded-lg mb-4 w-full max-w-md transition-all duration-300 ease-in-out">
+        <summary class="collapse-title text-lg font-semibold text-blue-500 cursor-pointer">
+            View Users
+        </summary>
+        <div class="collapse-content p-4">
+            <ul class="list-disc pl-5">
+                <li *ngFor="let user of users" class="py-1 text-gray-700">
+                    {{ user.name }} ({{ user.email }})
+                </li>
+            </ul>
+        </div>
+    </details>
+    <div class="mt-6 w-full max-w-md m-2">
+        <input [formControl]="searchControl" placeholder="Search users..." class="input input-bordered w-full" />
+        <ul class="list-disc pl-5 mt-2">
+            <li *ngFor="let result of searchResults" class="py-1 text-gray-700">
+                {{ result.name }}
+            </li>
+        </ul>
+    </div>
+    <!-- Posts Collapse Section -->
+    <details
+        class="collapse collapse-plus bg-white shadow-lg rounded-lg mb-4 w-full max-w-md transition-all duration-300 ease-in-out">
+        <summary class="collapse-title text-lg font-semibold text-blue-500 cursor-pointer">
+            View Posts
+        </summary>
+        <div class="collapse-content p-4">
+            <ul class="list-disc pl-5">
+                <li *ngFor="let post of posts" class="py-1 text-gray-700">
+                    <strong class="text-blue-600">{{ post.title }}</strong>
+                    <p class="mt-1">{{ post.body }}</p>
+                </li>
+            </ul>
+        </div>
+    </details>
+
+    <div *ngIf="loading" class="mt-4 text-blue-600">Loading search results...</div>
+    <div *ngIf="errorMessage" class="text-red-500 mt-4">{{ errorMessage }}</div>
+
+    
+</div>

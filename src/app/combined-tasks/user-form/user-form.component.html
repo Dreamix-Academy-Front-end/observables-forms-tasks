@@ -1,0 +1,77 @@
+<div class="collapse collapse-arrow">
+    <input type="checkbox" class="peer" />
+
+    <div class="collapse-title text-xl text-center font-medium">
+        Contact Us Form
+    </div>
+
+    <div class="flex justify-center items-center collapse-content">
+        <div class="mockup-phone border-primary">
+            <div class="camera"></div>
+            <div class="display">
+                <div class="artboard phone-1 bg-base-200 p-6">
+                    <h1 class="text-lg text-center font-semibold m-4">Contact Us</h1>
+
+                    <form [formGroup]="userForm" (ngSubmit)="submitForm()">
+
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">Name</span>
+                            </label>
+                            <input type="text" formControlName="name" placeholder="Enter your name"
+                                class="input input-bordered w-full" />
+                            <div *ngIf="userForm.get('name')?.invalid && userForm.get('name')?.touched"
+                                class="text-error">
+                                Name is required.
+                            </div>
+                        </div>
+
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">Email</span>
+                            </label>
+                            <input type="email" formControlName="email" placeholder="Enter your email"
+                                class="input input-bordered w-full" />
+                            <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+                                class="text-error">
+                                <small *ngIf="userForm.get('email')?.errors?.['required']">Email is required.</small>
+                                <small *ngIf="userForm.get('email')?.errors?.['email']">Please enter a valid email
+                                    address.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-control mb-4">
+                            <label class="label">
+                                <span class="label-text">Message</span>
+                            </label>
+                            <textarea formControlName="message" placeholder="Your message here..."
+                                class="textarea textarea-bordered w-full"></textarea>
+                            <div *ngIf="userForm.get('message')?.invalid && userForm.get('message')?.touched"
+                                class="text-error">
+                                Message is required.
+                            </div>
+                        </div>
+
+                        <div *ngIf="loading" class="flex justify-center mb-4">
+                            <span class="loading loading-infinity loading-lg text-primary"></span>
+                        </div>
+
+                        <div *ngIf="errorMessage" class="text-error mb-2">
+                            {{ errorMessage }}
+                        </div>
+                        <div *ngIf="successMessage" class="text-success mb-2">
+                            {{ successMessage }}
+                        </div>
+
+                        <div class="form-control mt-6">
+                            <button type="submit" class="btn btn-primary w-full"
+                                [disabled]="userForm.invalid || loading">
+                                Submit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

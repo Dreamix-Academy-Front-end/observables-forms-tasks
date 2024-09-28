@@ -1,0 +1,29 @@
+<div class="collapse collapse-arrow">
+    <input type="checkbox" class="peer" />
+    <div class="collapse-title text-center text-xl font-medium">
+        Real-time Post Search (click to expand)
+    </div>
+    <div class="collapse-content">
+        <div class="mockup-window border bg-base-200">
+            <div class="flex flex-col p-5">
+                <form [formGroup]="searchForm">
+                    <div class="form-control">
+                        <label class="label">
+                            <span class="label-text">Search Posts</span>
+                        </label>
+                        <input type="text" formControlName="searchTerm" placeholder="Enter post title"
+                            class="input input-bordered w-full" />
+                    </div>
+                </form>
+
+                <div *ngIf="searchResults$ | async as results" class="mt-4">
+                    <h2 class="text-lg font-bold">Search Results:</h2>
+                    <ul class="list-disc ml-5">
+                        <li *ngFor="let result of results">{{ result.title }}</li>
+                    </ul>
+                    <div *ngIf="results.length === 0" class="text-gray-500">No results found.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

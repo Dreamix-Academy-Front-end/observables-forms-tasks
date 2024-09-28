@@ -1,0 +1,78 @@
+<div class="p-4 max-w-lg mx-auto">
+    <form [formGroup]="userProfileForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div formGroupName="userDetails" class="form-control">
+            <label class="label">
+                <span class="label-text">First Name</span>
+            </label>
+            <input formControlName="firstName" type="text" class="input input-bordered" />
+            <div *ngIf="userProfileForm.get('userDetails.firstName')?.invalid && userProfileForm.get('userDetails.firstName')?.touched"
+                class="text-red-600">
+                First Name is required.
+            </div>
+        </div>
+
+        <div formGroupName="userDetails" class="form-control">
+            <label class="label">
+                <span class="label-text">Last Name</span>
+            </label>
+            <input formControlName="lastName" type="text" class="input input-bordered" />
+            <div *ngIf="userProfileForm.get('userDetails.lastName')?.invalid && userProfileForm.get('userDetails.lastName')?.touched"
+                class="text-red-600">
+                Last Name is required.
+            </div>
+        </div>
+
+        <div formGroupName="userDetails" class="form-control">
+            <label class="label">
+                <span class="label-text">Email</span>
+            </label>
+            <input formControlName="email" type="email" class="input input-bordered" />
+            <div *ngIf="loading" class="text-blue-600">Checking email...</div>
+            <div *ngIf="userProfileForm.get('userDetails.email')?.invalid && userProfileForm.get('userDetails.email')?.touched"
+                class="text-red-600">
+                <div *ngIf="userProfileForm.get('userDetails.email')?.errors?.['required']">Email is required.</div>
+                <div *ngIf="userProfileForm.get('userDetails.email')?.errors?.['email']">Invalid email format.</div>
+                <div *ngIf="userProfileForm.get('userDetails.email')?.errors?.['emailTaken']">Email is already taken.
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-lg font-semibold">Address</h3>
+
+        <div formGroupName="address" class="form-control">
+            <label class="label">
+                <span class="label-text">Street</span>
+            </label>
+            <input formControlName="street" type="text" class="input input-bordered" />
+            <div *ngIf="userProfileForm.get('address.street')?.invalid && userProfileForm.get('address.street')?.touched"
+                class="text-red-600">
+                Street is required.
+            </div>
+        </div>
+
+        <div formGroupName="address" class="form-control">
+            <label class="label">
+                <span class="label-text">City</span>
+            </label>
+            <input formControlName="city" type="text" class="input input-bordered" />
+            <div *ngIf="userProfileForm.get('address.city')?.invalid && userProfileForm.get('address.city')?.touched"
+                class="text-red-600">
+                City is required.
+            </div>
+        </div>
+
+        <div formGroupName="address" class="form-control">
+            <label class="label">
+                <span class="label-text">Zip Code</span>
+            </label>
+            <input formControlName="zip" type="text" class="input input-bordered" />
+            <div *ngIf="userProfileForm.get('address.zip')?.invalid && userProfileForm.get('address.zip')?.touched"
+                class="text-red-600">
+                <div *ngIf="userProfileForm.get('address.zip')?.errors?.['required']">Zip Code is required.</div>
+                <div *ngIf="userProfileForm.get('address.zip')?.errors?.['pattern']">Zip Code must be a number.</div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="userProfileForm.invalid">Submit</button>
+    </form>
+</div>

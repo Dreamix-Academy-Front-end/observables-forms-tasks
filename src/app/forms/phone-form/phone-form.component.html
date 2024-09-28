@@ -1,0 +1,47 @@
+<div class="p-6 bg-base-100 shadow-lg rounded-lg">
+    <div class="collapse collapse-arrow">
+        <input type="checkbox" class="peer" />
+
+        <div class="collapse-title text-xl text-center font-medium">
+            Phone Numbers Form
+        </div>
+
+        <div class="collapse-content">
+            <form [formGroup]="phoneForm" (ngSubmit)="onSubmit()">
+                <div formArrayName="phones">
+                    <div *ngFor="let phone of phones.controls; let i = index" [formGroupName]="i" class="mb-4">
+                        <div class="form-control">
+                            <label class="label">
+                                <span class="label-text">Phone Number {{ i + 1 }}</span>
+                            </label>
+                            <input type="text" formControlName="phoneNumber" placeholder="+1234567890"
+                                class="input input-bordered w-full" />
+
+                            <div *ngIf="phone.get('phoneNumber')?.invalid && (phone.get('phoneNumber')?.touched || phone.get('phoneNumber')?.dirty)"
+                                class="text-error mt-2">
+                                <small *ngIf="phone.get('phoneNumber')?.errors?.['required']">Phone number is
+                                    required.</small>
+                                <small *ngIf="phone.get('phoneNumber')?.errors?.['pattern']">Please enter a valid phone
+                                    number.</small>
+                            </div>
+                        </div>
+
+                        <div *ngIf="phones.length > 1" class="mt-2">
+                            <button type="button" class="btn btn-error btn-sm"
+                                (click)="removePhoneField(i)">Remove</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <button type="button" class="btn btn-info btn-sm" (click)="addPhoneField()">Add Phone
+                        Number</button>
+                </div>
+
+                <div class="mt-6">
+                    <button type="submit" class="btn btn-primary" [disabled]="phoneForm.invalid">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
